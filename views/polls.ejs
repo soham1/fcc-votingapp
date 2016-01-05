@@ -1,0 +1,13 @@
+<% include layout-header %>
+    <h1>Your Polls</h1>
+    <ul>
+        <% for(var i = 0; i < polls.length; i++){%>
+            <li>
+                <%= polls[i].question %>
+                <a href="/deletePoll/<%= polls[i]._id %>">Delete</a>
+                <a href="/vote/<%= polls[i]._id %>">Vote on this poll!</a>
+            </li>
+        <% } %>
+    </ul>
+    <a href="/dashboard">Add a Poll!</a>
+<% include layout-footer %>

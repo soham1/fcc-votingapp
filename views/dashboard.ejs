@@ -1,0 +1,15 @@
+<% include layout-header %>
+    <h1>Dashboard</h1>
+    <form id="newPoll" action="/addPoll" method="POST">
+        Poll Question:
+        <br>
+        <input type="text" name="question">
+        <br> Options:
+        <br>
+        <input type="text" name="options">
+        <input type="text" name="options">
+        <button type="button">More Options</button>
+        <button type="submit">Create Poll</button>
+    </form>
+    <a href="/polls">Your Polls</a>
+<% include layout-footer %>

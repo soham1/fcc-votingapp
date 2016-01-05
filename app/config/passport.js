@@ -6,6 +6,7 @@ var configAuth = require('./auth');
 
 module.exports = function (passport) {
 	passport.serializeUser(function (user, done) {
+		//console.log("User", user);
 		done(null, user.id);
 	});
 
