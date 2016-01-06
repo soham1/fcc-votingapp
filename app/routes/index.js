@@ -76,39 +76,87 @@ module.exports = function(app, passport) {
 				}
 				else {
 					//console.log("Polls", polls);
-					res.render('polls', {'polls': polls});
+					res.render('polls', {
+						'polls': polls
+					});
 				}
 			});
 		});
 
-	app.route('/api/:id')
+	app.route('/vote/:id')
 		.get(isLoggedIn, function(req, res) {
-			res.json(req.user.github);
-		});
-	
-	app.route('/deletePoll/:id')
-		.get(isLoggedIn, function(req, res) {
-			//console.log(req.params.id);
-			Poll.findByIdAndRemove(req.params.id, function(err){
-				if(err){
-					res.redirect('/polls');
-				}else{
-					res.redirect('/polls');
-				}	
+			Poll.
+			find({
+				_id: req.params.id
+			}).exec(function(err, poll) {
+				if (err) {
+					res.render('error');
+				}
+				else {
+					console.log("Polls", poll[0]);
+					res.render('vote', {
+						'poll': poll[0]
+					});
+				}
 			});
-		});	
+		});
 
-	app.route('/auth/github')
-		.get(passport.authenticate('github'));
+	app.route('/vote/:id')
+		.post(isLoggedIn, function(req, res) {
+				console.log("BODY", req.body);
+				Poll.findById(req.params.id, function(err, poll) {
+						if (err) {
+							res.render('error');
+						}
+						else {
+							var i = Number(req.body.options);
+							poll.votes[i] = poll.votes[i] + 1;
+							poll.markModified('votes');
+							poll.save(function(err) {
+								if (err) {
+									res.render('error');
+								}
+								else {
+									res.render('graph', {
+										'poll': poll
+									});
+								}
+							});
+						}
 
-	app.route('/auth/github/callback')
-		.get(passport.authenticate('github', {
-			successRedirect: '/dashboard',
-			failureRedirect: '/login'
-		}));
+					}
+				);
+		});
 
-	app.route('/api/:id/clicks')
-		.get(isLoggedIn, clickHandler.getClicks)
-		.post(isLoggedIn, clickHandler.addClick)
-		.delete(isLoggedIn, clickHandler.resetClicks);
+app.route('/api/:id')
+	.get(isLoggedIn, function(req, res) {
+		res.json(req.user.github);
+	});
+
+app.route('/deletePoll/:id')
+	.get(isLoggedIn, function(req, res) {
+		//console.log(req.params.id);
+		Poll.findByIdAndRemove(req.params.id, function(err) {
+			if (err) {
+				res.redirect('/polls');
+			}
+			else {
+				res.redirect('/polls');
+			}
+		});
+	});
+
+app.route('/auth/github')
+	.get(passport.authenticate('github'));
+
+app.route('/auth/github/callback')
+	.get(passport.authenticate('github', {
+		successRedirect: '/dashboard',
+		failureRedirect: '/login'
+	}));
+
+app.route('/api/:id/clicks')
+	.get(isLoggedIn, clickHandler.getClicks)
+	.post(isLoggedIn, clickHandler.addClick)
+	.delete(isLoggedIn, clickHandler.resetClicks);
 };

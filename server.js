@@ -18,6 +18,8 @@ app.use('/controllers', express.static(process.cwd() + '/app/controllers'));
 app.use('/public', express.static(process.cwd() + '/public'));
 app.use('/common', express.static(process.cwd() + '/app/common'));
 
+app.use('/bower_components',  express.static(__dirname + '/bower_components'));
+
 app.use(session({
 	secret: 'secretClementine',
 	resave: false,

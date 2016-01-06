@@ -1,0 +1,10 @@
+<% include layout-header %>
+    <h1>Vote</h1>
+    <h3><%=poll.question %></h3>
+    <form action="/vote/<%=poll._id%>" method="POST">
+        <% for(var i=0 ; i < poll.options.length; i++){%>
+            <input type="radio" name="options" value="<%=i%>"><%=poll.options[i]%><br>
+        <% } %>
+        <button type="submit">Submit Vote</button>
+    </form>
+    <% include layout-footer %>
