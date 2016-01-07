@@ -1,4 +1,5 @@
 <% include layout-header %>
+    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
     <h1>Dashboard</h1>
     <form id="newPoll" action="/addPoll" method="POST">
         Poll Question:
@@ -6,10 +7,49 @@
         <input type="text" name="question">
         <br> Options:
         <br>
-        <input type="text" name="options">
-        <input type="text" name="options">
-        <button type="button">More Options</button>
+        <div id="optionSection">
+            <input type="text" name="options">
+            <br>
+            <input type="text" name="options">
+            <br>
+        </div>
+        <span id="errorMsg"></span>
+        <button id="moreBtn" type="button">More Options</button>
         <button type="submit">Create Poll</button>
     </form>
+    <script>
+        $(document).ready(function() {
+           $("#moreBtn").on("click", function(){
+               $("#optionSection").append('<span><input type="text" name="options"><a class="rmBtn" href"#">Remove</a><br></span>');
+           });
+           $("body").on("click", ".rmBtn", function(e){
+              $(e.target).parent().remove();
+           });
+           $("#newPoll").on("submit", function(e) {
+                var isValid = true;
+                var errorTxt = "";
+                var count = 0;
+                var options = $('input[name=options]');
+                var totalOptions = options.length;
+                for (var i = 0; i < totalOptions; i++) {
+                    if ($(options[i]).val() !== "") {
+                        count++;
+                    }
+                }
+                if ($('input[name=question]').val() === "") {
+                    isValid = false;
+                    errorTxt = "Please enter the poll question. ";
+                }
+                if (count < 2) {
+                    isValid = false;
+                    errorTxt = errorTxt + "Please enter at least two options.";
+                }
+                if (!isValid){
+                    $("#errorMsg").html(errorTxt);
+                    e.preventDefault();
+                }
+            });
+        });
+    </script>
     <a href="/polls">Your Polls</a>
-<% include layout-footer %>
+    <% include layout-footer %>

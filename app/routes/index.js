@@ -84,7 +84,7 @@ module.exports = function(app, passport) {
 		});
 
 	app.route('/vote/:id')
-		.get(isLoggedIn, function(req, res) {
+		.get(function(req, res) {
 			Poll.
 			find({
 				_id: req.params.id
