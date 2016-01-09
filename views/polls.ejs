@@ -1,13 +1,14 @@
 <% include layout-header %>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <h1>Your Polls</h1>
     <ul>
         <% for(var i = 0; i < polls.length; i++){%>
             <li>
                 <%= polls[i].question %>
-                <a href="/deletePoll/<%= polls[i]._id %>">Delete</a>
-                <a href="/vote/<%= polls[i]._id %>">Vote on this poll!</a>
+                <a href="/deletePoll/<%= polls[i]._id %>" class="waves-effect waves-red btn">Delete</a>
+                <a href="/vote/<%= polls[i]._id %>" class="waves-effect waves-light btn">Vote on this Poll!</a>
             </li>
         <% } %>
     </ul>
-    <a href="/dashboard">Add a Poll!</a>
+    <a href="/dashboard" class="waves-effect waves-light btn">Add a Poll!</a>
 <% include layout-footer %>

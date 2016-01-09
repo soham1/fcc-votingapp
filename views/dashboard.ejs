@@ -1,26 +1,29 @@
 <% include layout-header %>
     <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <h1>Dashboard</h1>
     <form id="newPoll" action="/addPoll" method="POST">
         Poll Question:
         <br>
-        <input type="text" name="question">
-        <br> Options:
+        <input class="input" type="text" name="question" placeholder="Question">
+        <br> Options: <a id="moreBtn" class="btn-floating waves-effect waves-light"><i class="material-icons">add</i></a>
         <br>
         <div id="optionSection">
-            <input type="text" name="options">
+            <input class="input" type="text" name="options" placeholder="First option">
             <br>
-            <input type="text" name="options">
+            <input class="input" type="text" name="options" placeholder="Second option">
             <br>
         </div>
         <span id="errorMsg"></span>
-        <button id="moreBtn" type="button">More Options</button>
-        <button type="submit">Create Poll</button>
+        <a id="submitBtn" class="waves-effect waves-light btn">Create</a>
     </form>
     <script>
         $(document).ready(function() {
            $("#moreBtn").on("click", function(){
-               $("#optionSection").append('<span><input type="text" name="options"><a class="rmBtn" href"#">Remove</a><br></span>');
+               $("#optionSection").append('<span><input class="input" type="text" name="options"><a class="rmBtn waves-effect waves-light btn #b71c1c red darken-4">Remove</a><br></span>');
+           });
+           $("#submitBtn").click(function(){
+              $("#submitBtn").closest('form').submit();
            });
            $("body").on("click", ".rmBtn", function(e){
               $(e.target).parent().remove();
@@ -51,5 +54,4 @@
             });
         });
     </script>
-    <a href="/polls">Your Polls</a>
     <% include layout-footer %>

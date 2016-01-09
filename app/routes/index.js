@@ -12,37 +12,30 @@ module.exports = function(app, passport) {
 			return next();
 		}
 		else {
-			res.redirect('/login');
+			res.redirect('/');
 		}
 	}
 
 	var clickHandler = new ClickHandler();
 
 	app.route('/')
-		.get(isLoggedIn, function(req, res) {
-			res.sendFile(path + '/public/index.html');
-		});
-
-	app.route('/login')
 		.get(function(req, res) {
-			res.render('login');
-			//res.sendFile(path + '/public/login.html');
+			if(req.user){
+				res.redirect('/dashboard');
+			}else{
+				res.render('index', {user: req.user});
+			}
 		});
 
 	app.route('/logout')
 		.get(function(req, res) {
 			req.logout();
-			res.redirect('/login');
-		});
-
-	app.route('/profile')
-		.get(isLoggedIn, function(req, res) {
-			res.sendFile(path + '/public/profile.html');
+			res.redirect('/');
 		});
 
 	app.route('/dashboard')
 		.get(isLoggedIn, function(req, res) {
-			res.render('dashboard');
+			res.render('dashboard', {user: req.user});
 		});
 
 	app.route('/addPoll')
@@ -77,7 +70,8 @@ module.exports = function(app, passport) {
 				else {
 					//console.log("Polls", polls);
 					res.render('polls', {
-						'polls': polls
+						'polls': polls,
+						'user' : req.user
 					});
 				}
 			});
@@ -95,7 +89,8 @@ module.exports = function(app, passport) {
 				else {
 					console.log("Polls", poll[0]);
 					res.render('vote', {
-						'poll': poll[0]
+						'poll': poll[0],
+						'user': req.user
 					});
 				}
 			});
@@ -118,7 +113,8 @@ module.exports = function(app, passport) {
 								}
 								else {
 									res.render('graph', {
-										'poll': poll
+										'poll': poll,
+										'user': req.user
 									});
 								}
 							});
@@ -152,7 +148,7 @@ app.route('/auth/github')
 app.route('/auth/github/callback')
 	.get(passport.authenticate('github', {
 		successRedirect: '/dashboard',
-		failureRedirect: '/login'
+		failureRedirect: '/'
 	}));
 
 app.route('/api/:id/clicks')

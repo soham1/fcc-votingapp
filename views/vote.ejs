@@ -1,14 +1,21 @@
 <% include layout-header %>
-    <h1>Vote</h1>
-    <h3><%=poll.question %></h3>
+    <h1>Poll Question: <%=poll.question %></h1>
     <form action="/vote/<%=poll._id%>" method="POST">
         <% for(var i=0 ; i < poll.options.length; i++){%>
-            <input type="radio" name="options" 
+            <p>
+            <input class="with-gap" type="radio" name="options" id="option-<%=i%>"
             <%if(i === 0){%>
                 checked
             <%}%>    
-            value="<%=i%>"><%=poll.options[i]%><br>
+            value="<%=i%>">
+            <label for="option-<%=i%>"><%=poll.options[i]%></label>
+            </p>
         <% } %>
-        <button type="submit">Submit Vote</button>
+        <a class="waves-effect waves-light btn" type="submit">Submit Vote</a>
     </form>
+    <script>
+        $("a").click(function(){
+            $("a").closest('form').submit();
+        });
+    </script>
     <% include layout-footer %>

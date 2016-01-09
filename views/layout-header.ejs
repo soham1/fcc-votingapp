@@ -1,19 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
+<script src="/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="/bower_components/Materialize/bin/materialize.js"></script>
+<link type="text/css" rel="stylesheet" href="/bower_components/Materialize/bin/materialize.css"/>
+<link type="text/css" rel="stylesheet" href="/public/css/main.css"/>
 
 <head>
     <meta charset="utf-8">
     <title>Voting App</title>
     <meta name="description" content="">
     <meta name="author" content="">
-
-    <!-- HTML5 shim, for IE6-8 support of HTML elements -->
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-
-    <!-- styles -->
-    <link href="/public/css/main.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
+  <nav class="light-blue lighten-1" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Votify</a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="/">Home</a></li>
+          <%if(user){%>
+            <li>
+              <a href="/polls">My Polls</a>
+            </li>  
+            <li>
+              <a href="/logout">Logout</a>
+            </li>
+            <li>
+              Welcome <%=user.github.username%>!
+            </li>
+          <%}else{%>
+            <li>
+              <a href="/auth/github">Login</a>
+            </li>  
+          <%}%>
+      </ul>
+    </div>
+</nav>
+
+<div id="mainBody">
