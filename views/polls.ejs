@@ -7,6 +7,7 @@
                 <%= polls[i].question %>
                 <a href="/deletePoll/<%= polls[i]._id %>" class="waves-effect waves-red btn">Delete</a>
                 <a href="/vote/<%= polls[i]._id %>" class="waves-effect waves-light btn">Vote on this Poll!</a>
+                <a>https://fcc-votingapp-soham1.c9users.io/vote/<%= polls[i]._id %></a>
             </li>
         <% } %>
     </ul>

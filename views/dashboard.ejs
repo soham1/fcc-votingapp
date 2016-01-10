@@ -20,13 +20,13 @@
     <script>
         $(document).ready(function() {
            $("#moreBtn").on("click", function(){
-               $("#optionSection").append('<span><input class="input" type="text" name="options"><a class="rmBtn waves-effect waves-light btn #b71c1c red darken-4">Remove</a><br></span>');
+               $("#optionSection").append('<span><input class="input" type="text" name="options"><a class="rmBtn btn-floating waves-effect waves-light red"><i class="material-icons">clear</i></a><br></span>');
            });
            $("#submitBtn").click(function(){
               $("#submitBtn").closest('form').submit();
            });
            $("body").on("click", ".rmBtn", function(e){
-              $(e.target).parent().remove();
+              $(e.target).closest("span").remove();
            });
            $("#newPoll").on("submit", function(e) {
                 var isValid = true;
@@ -48,7 +48,7 @@
                     errorTxt = errorTxt + "Please enter at least two options.";
                 }
                 if (!isValid){
-                    $("#errorMsg").html(errorTxt);
+                    $("#errorMsg").html("<span style='font-weight:bold' class='red-text text-darken-4'>" + errorTxt + "</span>");
                     e.preventDefault();
                 }
             });

@@ -1,9 +1,10 @@
 #mainBody {
     padding-left: 10px;
+    min-height: 300px;
 }
 
 .github {
-    padding-top: 8px;
+    padding-top: 4px;
 }
 
 .input {
@@ -16,4 +17,13 @@
 
 #moreBtn {
     margin-left: 5px;
+}
+
+.homeImg {
+    width: 128px;
+    height: 128px;
+}
+
+#url {
+    width: 700px !important;
 }

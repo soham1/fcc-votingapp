@@ -1,16 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-<script src="/bower_components/jquery/dist/jquery.min.js"></script>
-<script src="/bower_components/Materialize/bin/materialize.js"></script>
-<link type="text/css" rel="stylesheet" href="/bower_components/Materialize/bin/materialize.css"/>
-<link type="text/css" rel="stylesheet" href="/public/css/main.css"/>
+
 
 <head>
     <meta charset="utf-8">
-    <title>Voting App</title>
+    <link rel="shortcut icon" href="/public/img/favicon.ico">
+    <title>Votify</title>
     <meta name="description" content="">
     <meta name="author" content="">
+    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/bower_components/Materialize/bin/materialize.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="/bower_components/Materialize/bin/materialize.css"/>
+    <link type="text/css" rel="stylesheet" href="/public/css/main.css"/>
+    <script>
+      var username = "";
+      <%if(user){%>
+        username = "<%=user.github.username%>";
+      <%}%>
+      $(function(){
+        if(username.length > 0){
+          $.getJSON("https://api.github.com/users/" + username, function(json){
+            $("#chip").attr("src", json.avatar_url);
+          });
+        }
+      });
+    </script>
+
 </head>
+
 
 <body>
   <nav class="light-blue lighten-1" role="navigation">
@@ -22,10 +40,13 @@
               <a href="/polls">My Polls</a>
             </li>  
             <li>
-              <a href="/logout">Logout</a>
+              <div class="yellow chip">
+                <img id="chip" src="">
+                <%=user.github.username%>
+              </div>
             </li>
             <li>
-              Welcome <%=user.github.username%>!
+              <a href="/logout">Logout</a>
             </li>
           <%}else{%>
             <li>
