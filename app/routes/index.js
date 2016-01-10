@@ -97,7 +97,7 @@ module.exports = function(app, passport) {
 		});
 
 	app.route('/vote/:id')
-		.post(isLoggedIn, function(req, res) {
+		.post(function(req, res) {
 				console.log("BODY", req.body);
 				Poll.findById(req.params.id, function(err, poll) {
 						if (err) {
