@@ -34,19 +34,19 @@ User Story: As an authenticated user, if I don't like the options on a poll, I c
 
 ###User is making a new poll.
 
-<img src="Votify4.PNG">
+<img src="images/Votify4.PNG">
 
 ###The user will see the newly created poll on My Polls. A shareable link is also given.
 
-<img src="Votify5.PNG">
+<img src="images/Votify5.PNG">
 
 ###When a user goes to the shareable link, the options are provided.
 
-<img src="Votify6.PNG">
+<img src="images/Votify6.PNG">
 
 ###After submitting an answer, the user will see a pie chart of the poll.
 
-<img src="Votify7.PNG">
+<img src="images/Votify7.PNG">
 
 
 ##Technologies Used:
